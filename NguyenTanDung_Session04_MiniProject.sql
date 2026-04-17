@@ -1,40 +1,36 @@
-create database homework_ss4;
+CREATE DATABASE homework_ss4;
+USE homework_ss4;
 
-use homework_ss4;
-
-create table Student(
-	studentId int primary key auto_increment,
-    teacherId int unique,
-    foreign key (teacherId) references Teacher(teacherId),
-    fullName varchar(255) not null,
-    courseId int unique,
-    foreign key (courseId) references Course(courseId),
-    fullName varchar(255) not null,
-    birthday date not null,
-    email varchar(255) not null unique
+CREATE TABLE Teacher (
+    teacherId INT PRIMARY KEY AUTO_INCREMENT,
+    teacherName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE
 );
 
-create table Course(
-	courseId int primary key auto_increment,
-    teacherId int,
-    foreign key (teacherId) references Teacher(teacherId),
-    courseName varchar(255) not null,
-    shortDescribe varchar(300),
-    numberCourse int not null
-    check (numberCourse > 0)
+CREATE TABLE Course (
+    courseId INT PRIMARY KEY AUTO_INCREMENT,
+    teacherId INT,
+    courseName VARCHAR(255) NOT NULL,
+    shortDescribe VARCHAR(300),
+    numberCourse INT NOT NULL,
+    CHECK (numberCourse > 0),
+    FOREIGN KEY (teacherId) REFERENCES Teacher(teacherId)
 );
 
-create table Teacher(
-	teacherId int primary key auto_increment,
-    teacherName varchar(255) not null,
-    email varchar(255) not null unique
+CREATE TABLE Student (
+    studentId INT PRIMARY KEY AUTO_INCREMENT,
+    fullName VARCHAR(255) NOT NULL,
+    birthday DATE NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE
 );
 
-create table Enrollment(
-	enrollmentId int primary key auto_increment,
-    enrollmentDate timestamp not null,
-    studentId int unique,
-    foreign key (studentId) references Student(studentId)
+CREATE TABLE Enrollment (
+    enrollmentId INT PRIMARY KEY AUTO_INCREMENT,
+    enrollmentDate TIMESTAMP NOT NULL,
+    studentId INT,
+    courseId INT,
+    FOREIGN KEY (studentId) REFERENCES Student(studentId),
+    FOREIGN KEY (courseId) REFERENCES Course(courseId)
 );
 
 create table Score(
