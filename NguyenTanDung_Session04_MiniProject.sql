@@ -1,3 +1,5 @@
+drop database online_learning; -- dùng để drop đi để test lại các phần
+
 -- Tạo và sử dụng database
 CREATE DATABASE IF NOT EXISTS online_learning
     CHARACTER SET utf8mb4
